@@ -1,0 +1,112 @@
+application{
+    config{
+        baseName employee
+        applicationType microservice
+        authenticationType jwt
+        packageName com.leap.training.employee
+        serviceDiscoveryType eureka
+        buildTool maven
+        databaseType sql
+        devDatabaseType h2Disk
+        prodDatabaseType oracle
+        serverPort 8889
+        skipClient true        
+        skipUserManagement true
+    }
+entities Employee, Job, JobHistory, Department, Location, Country, Region
+}
+
+application{
+    config{
+        baseName gateway
+        applicationType gateway
+        packageName com.leap.training.gateway
+        authenticationType jwt
+        serviceDiscoveryType eureka
+        buildTool maven
+        databaseType sql
+        devDatabaseType h2Disk
+        clientFramework angularX
+        prodDatabaseType oracle
+        serverPort 8888
+        testFrameworks [cypress]        
+        skipUserManagement false
+    }
+    entities *
+}
+
+entity Region(regions) {
+
+	regionName String
+}
+
+entity Country {
+
+	countryName String
+}
+
+// an ignored comment
+/** not an ignored comment */
+entity Location {
+
+	streetAddress String
+	postalCode String
+	city String
+	stateProvince String
+}
+
+entity Department {
+
+	departmentName String required
+}
+
+/**
+ * The Employee entity.
+ */
+entity Employee {
+	/**
+	* The firstname attribute.
+	*/
+
+	firstName String
+	lastName String
+	email String
+	phoneNumber String
+	hireDate Instant
+	salary Long
+	commissionPct Long
+}
+
+entity Job {
+
+	jobTitle String
+	minSalary Long
+	maxSalary Long
+}
+
+entity JobHistory {
+
+	startDate Instant
+	endDate Instant
+}
+
+relationship OneToMany {
+  Job{Employees} to Employee{Job}
+  Employee{SubEmployees} to Employee{Manager}
+  Department{Employees} to Employee{Department}
+
+  Job{JobHistories} to JobHistory{Job}
+  Department{JobHistories} to JobHistory{Department}
+
+  Employee{ManagedDepartments} to Department{Manager}
+  Location{Departments} to Department{Location}
+
+  Country{Locations} to Location{Country}
+  
+  Region{Countries} to Country{Region}
+}
+
+// Set pagination options
+paginate * with pagination
+// Set service options
+service * with serviceClass
