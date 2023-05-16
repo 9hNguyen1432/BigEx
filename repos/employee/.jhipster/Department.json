@@ -2,13 +2,6 @@
   "name": "Department",
   "fields": [
     {
-      "fieldName": "departmentId",
-      "fieldType": "Long",
-      "options": {
-        "id": true
-      }
-    },
-    {
       "fieldName": "departmentName",
       "fieldType": "String",
       "fieldValidateRules": ["required"]
@@ -48,9 +41,9 @@
   "fluentMethods": true,
   "readOnly": false,
   "embedded": false,
-  "applications": ["employee"],
+  "applications": ["employee", "gateway"],
   "microserviceName": "employee",
   "clientRootFolder": "employee",
   "databaseType": "sql",
-  "changelogDate": "20230516031708"
+  "changelogDate": "20230516072537"
 }

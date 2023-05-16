@@ -2,13 +2,6 @@
   "name": "Region",
   "fields": [
     {
-      "fieldName": "regionId",
-      "fieldType": "Long",
-      "options": {
-        "id": true
-      }
-    },
-    {
       "fieldName": "regionName",
       "fieldType": "String"
     }
@@ -29,9 +22,9 @@
   "fluentMethods": true,
   "readOnly": false,
   "embedded": false,
-  "applications": ["employee"],
+  "applications": ["employee", "gateway"],
   "microserviceName": "employee",
   "clientRootFolder": "employee",
   "databaseType": "sql",
-  "changelogDate": "20230516032208"
+  "changelogDate": "20230516073037"
 }

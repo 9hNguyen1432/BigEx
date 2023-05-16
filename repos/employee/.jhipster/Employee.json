@@ -2,16 +2,9 @@
   "name": "Employee",
   "fields": [
     {
-      "fieldName": "employeeId",
-      "fieldType": "Long",
-      "javadoc": "The firstname attribute.",
-      "options": {
-        "id": true
-      }
-    },
-    {
       "fieldName": "firstName",
-      "fieldType": "String"
+      "fieldType": "String",
+      "javadoc": "The firstname attribute."
     },
     {
       "fieldName": "lastName",
@@ -79,9 +72,9 @@
   "fluentMethods": true,
   "readOnly": false,
   "embedded": false,
-  "applications": ["employee"],
+  "applications": ["employee", "gateway"],
   "microserviceName": "employee",
   "clientRootFolder": "employee",
   "databaseType": "sql",
-  "changelogDate": "20230516031808"
+  "changelogDate": "20230516072637"
 }

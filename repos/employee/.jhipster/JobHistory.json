@@ -2,10 +2,6 @@
   "name": "JobHistory",
   "fields": [
     {
-      "fieldName": "employeeId",
-      "fieldType": "Long"
-    },
-    {
       "fieldName": "startDate",
       "fieldType": "Instant"
     },
@@ -36,9 +32,9 @@
   "fluentMethods": true,
   "readOnly": false,
   "embedded": false,
-  "applications": ["employee"],
+  "applications": ["employee", "gateway"],
   "microserviceName": "employee",
   "clientRootFolder": "employee",
   "databaseType": "sql",
-  "changelogDate": "20230516032008"
+  "changelogDate": "20230516072837"
 }

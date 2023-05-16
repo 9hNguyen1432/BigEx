@@ -2,13 +2,6 @@
   "name": "Job",
   "fields": [
     {
-      "fieldName": "jobId",
-      "fieldType": "String",
-      "options": {
-        "id": true
-      }
-    },
-    {
       "fieldName": "jobTitle",
       "fieldType": "String"
     },
@@ -43,9 +36,9 @@
   "fluentMethods": true,
   "readOnly": false,
   "embedded": false,
-  "applications": ["employee"],
+  "applications": ["employee", "gateway"],
   "microserviceName": "employee",
   "clientRootFolder": "employee",
   "databaseType": "sql",
-  "changelogDate": "20230516031908"
+  "changelogDate": "20230516072737"
 }

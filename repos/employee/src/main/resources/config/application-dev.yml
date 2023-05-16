@@ -18,7 +18,7 @@ logging:
     ROOT: DEBUG
     tech.jhipster: DEBUG
     org.hibernate.SQL: DEBUG
-    com.mycompany.myapp: DEBUG
+    com.leap.training.employee: DEBUG
 
 eureka:
   instance:
@@ -105,7 +105,7 @@ jhipster:
     authentication:
       jwt:
         # This token must be encoded using Base64 and be at least 256 bits long (you can type `openssl rand -base64 64` on your command line to generate a 512 bits one)
-        base64-secret: MDFkMTdmMWY1YTk4OTk0ZjkwMDQwZTU0NmI4MzQ5MjBlZmM3NzZjNWMwNTllNWVmNTJhMjhmNTAxOGRmYWUwZDYyOGE0YzM3YzBiNThmOGY0NzAzYzczMDdhODdlNmU4ODI0YzlmMmNiYWJjNjU0Y2NiMmVkY2NiMDQ2OWE4YmQ=
+        base64-secret: NzkwYWJhYmU3NWMxZGNkNjBjOGQ5NTU4ZjRiNThiY2Y5ODU2MmY2MzJhYTkyODMyN2VmMTFiNmRkMDk1OWRlOWFmYWU1NmVlM2U1M2ZjYTdhM2VhOWVjYjk4MzYwZWQ5MzJmYjUxMWY3NTRmZjY5NTc5MjNiZWNhNjBiNmNjYjE=
         # Token is valid 24 hours
         token-validity-in-seconds: 86400
         token-validity-in-seconds-for-remember-me: 2592000

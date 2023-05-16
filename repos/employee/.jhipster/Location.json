@@ -2,13 +2,6 @@
   "name": "Location",
   "fields": [
     {
-      "fieldName": "locationId",
-      "fieldType": "Long",
-      "options": {
-        "id": true
-      }
-    },
-    {
       "fieldName": "streetAddress",
       "fieldType": "String"
     },
@@ -48,9 +41,9 @@
   "fluentMethods": true,
   "readOnly": false,
   "embedded": false,
-  "applications": ["employee"],
+  "applications": ["employee", "gateway"],
   "microserviceName": "employee",
   "clientRootFolder": "employee",
   "databaseType": "sql",
-  "changelogDate": "20230516032108"
+  "changelogDate": "20230516072937"
 }

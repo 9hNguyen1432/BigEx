@@ -205,6 +205,11 @@ jhipster:
     license-url:
   security:
     content-security-policy: "default-src 'self'; frame-src 'self' data:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://storage.googleapis.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:"
+    authentication:
+      jwt:
+        secret: YTdlYjA3ZmJlNTkwMjA2YTQwNWM5ZTUzNTNjZjc0YzIzOTBjY2QzMWRjMjg1NzEwZGQ5MWE0NzNlMDVhMDQxMjhjYzQ1ZDFkZDc1NDY1ZGYzMTJlMTEwM2IwM2UyZjJhMTI5MWY2MzA0MWY1NWRiNjU3ZmU3MjlhMWVjZjllYjE=
+
+
 # ===================================================================
 # Application specific properties
 # Add your own application properties here, see the ApplicationProperties class

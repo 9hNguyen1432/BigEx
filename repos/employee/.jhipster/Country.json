@@ -2,13 +2,6 @@
   "name": "Country",
   "fields": [
     {
-      "fieldName": "countryId",
-      "fieldType": "String",
-      "options": {
-        "id": true
-      }
-    },
-    {
       "fieldName": "countryName",
       "fieldType": "String"
     }
@@ -35,9 +28,9 @@
   "fluentMethods": true,
   "readOnly": false,
   "embedded": false,
-  "applications": ["employee"],
+  "applications": ["employee", "gateway"],
   "microserviceName": "employee",
   "clientRootFolder": "employee",
   "databaseType": "sql",
-  "changelogDate": "20230516031608"
+  "changelogDate": "20230516072437"
 }
