@@ -1,4 +1,5 @@
 import * as dayjs from 'dayjs';
+import { IJobHistory } from 'app/entities/job-history/job-history.model';
 import { IDepartment } from 'app/entities/department/department.model';
 import { IJob } from 'app/entities/job/job.model';
 
@@ -12,6 +13,7 @@ export interface IEmployee {
   salary?: number | null;
   commissionPct?: number | null;
   subEmployees?: IEmployee[] | null;
+  jobHistorys?: IJobHistory[] | null;
   managedDepartments?: IDepartment[] | null;
   job?: IJob | null;
   manager?: IEmployee | null;
@@ -29,6 +31,7 @@ export class Employee implements IEmployee {
     public salary?: number | null,
     public commissionPct?: number | null,
     public subEmployees?: IEmployee[] | null,
+    public jobHistorys?: IJobHistory[] | null,
     public managedDepartments?: IDepartment[] | null,
     public job?: IJob | null,
     public manager?: IEmployee | null,

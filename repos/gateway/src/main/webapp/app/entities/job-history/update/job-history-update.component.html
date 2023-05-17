@@ -44,6 +44,11 @@
         </div>
 
         <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gatewayApp.jobHistory.salary" for="field_salary">Salary</label>
+          <input type="number" class="form-control" name="salary" id="field_salary" data-cy="salary" formControlName="salary" />
+        </div>
+
+        <div class="form-group">
           <label class="form-control-label" jhiTranslate="gatewayApp.jobHistory.job" for="field_job">Job</label>
           <select class="form-control" id="field_job" data-cy="job" name="job" formControlName="job">
             <option [ngValue]="null"></option>
@@ -67,6 +72,19 @@
               *ngFor="let departmentOption of departmentsSharedCollection; trackBy: trackDepartmentById"
             >
               {{ departmentOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gatewayApp.jobHistory.employee" for="field_employee">Employee</label>
+          <select class="form-control" id="field_employee" data-cy="employee" name="employee" formControlName="employee">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="employeeOption.id === editForm.get('employee')!.value?.id ? editForm.get('employee')!.value : employeeOption"
+              *ngFor="let employeeOption of employeesSharedCollection; trackBy: trackEmployeeById"
+            >
+              {{ employeeOption.id }}
             </option>
           </select>
         </div>

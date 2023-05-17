@@ -29,6 +29,9 @@ public class JobHistory implements Serializable {
     @Column(name = "end_date")
     private Instant endDate;
 
+    @Column(name = "salary")
+    private Long salary;
+
     @ManyToOne
     @JsonIgnoreProperties(value = { "employees", "jobHistories" }, allowSetters = true)
     private Job job;
@@ -36,6 +39,13 @@ public class JobHistory implements Serializable {
     @ManyToOne
     @JsonIgnoreProperties(value = { "employees", "jobHistories", "manager", "location" }, allowSetters = true)
     private Department department;
+
+    @ManyToOne
+    @JsonIgnoreProperties(
+        value = { "subEmployees", "jobHistorys", "managedDepartments", "job", "manager", "department" },
+        allowSetters = true
+    )
+    private Employee employee;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -78,6 +88,19 @@ public class JobHistory implements Serializable {
         this.endDate = endDate;
     }
 
+    public Long getSalary() {
+        return this.salary;
+    }
+
+    public JobHistory salary(Long salary) {
+        this.setSalary(salary);
+        return this;
+    }
+
+    public void setSalary(Long salary) {
+        this.salary = salary;
+    }
+
     public Job getJob() {
         return this.job;
     }
@@ -101,6 +124,19 @@ public class JobHistory implements Serializable {
 
     public JobHistory department(Department department) {
         this.setDepartment(department);
+        return this;
+    }
+
+    public Employee getEmployee() {
+        return this.employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
+    public JobHistory employee(Employee employee) {
+        this.setEmployee(employee);
         return this;
     }
 
@@ -130,6 +166,7 @@ public class JobHistory implements Serializable {
             "id=" + getId() +
             ", startDate='" + getStartDate() + "'" +
             ", endDate='" + getEndDate() + "'" +
+            ", salary=" + getSalary() +
             "}";
     }
 }

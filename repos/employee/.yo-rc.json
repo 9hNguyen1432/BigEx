@@ -42,11 +42,11 @@
     "clientThemeVariant": "",
     "withAdminUi": false,
     "nativeLanguage": "en",
-    "creationTimestamp": 1684221817720,
+    "creationTimestamp": 1684307352074,
     "monorepository": true,
     "skipCommitHook": true,
-    "jwtSecretKey": "NzkwYWJhYmU3NWMxZGNkNjBjOGQ5NTU4ZjRiNThiY2Y5ODU2MmY2MzJhYTkyODMyN2VmMTFiNmRkMDk1OWRlOWFmYWU1NmVlM2U1M2ZjYTdhM2VhOWVjYjk4MzYwZWQ5MzJmYjUxMWY3NTRmZjY5NTc5MjNiZWNhNjBiNmNjYjE=",
+    "jwtSecretKey": "NGY5NTNkYmI5MzRhMzA4NDAwMzFiMmU2YmI0ODIwOWZjZTlhNzg4ZmMyNzliNWEyYmRmOTBlZjU1YTcwNzZjN2RhYTMzZDFkNmVmOTJiNTRiNWM4MTc2OGFjZWYwOGNiYTg2YjYyOWM2NTg1NDZiNjE1YmVkZDhjZjYxZWU1MGM=",
     "entities": ["Country", "Department", "Employee", "Job", "JobHistory", "Location", "Region"],
-    "lastLiquibaseTimestamp": 1684222237000
+    "lastLiquibaseTimestamp": 1684307772000
   }
 }

@@ -31,11 +31,14 @@ public class Job implements Serializable {
     private Long maxSalary;
 
     @Transient
-    @JsonIgnoreProperties(value = { "subEmployees", "managedDepartments", "job", "manager", "department" }, allowSetters = true)
+    @JsonIgnoreProperties(
+        value = { "subEmployees", "jobHistorys", "managedDepartments", "job", "manager", "department" },
+        allowSetters = true
+    )
     private Set<Employee> employees = new HashSet<>();
 
     @Transient
-    @JsonIgnoreProperties(value = { "job", "department" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "job", "department", "employee" }, allowSetters = true)
     private Set<JobHistory> jobHistories = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

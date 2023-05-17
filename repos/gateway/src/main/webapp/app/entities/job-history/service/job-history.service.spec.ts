@@ -27,6 +27,7 @@ describe('JobHistory Service', () => {
       id: 0,
       startDate: currentDate,
       endDate: currentDate,
+      salary: 0,
     };
   });
 
@@ -78,6 +79,7 @@ describe('JobHistory Service', () => {
           id: 1,
           startDate: currentDate.format(DATE_TIME_FORMAT),
           endDate: currentDate.format(DATE_TIME_FORMAT),
+          salary: 1,
         },
         elemDefault
       );
@@ -128,6 +130,7 @@ describe('JobHistory Service', () => {
           id: 1,
           startDate: currentDate.format(DATE_TIME_FORMAT),
           endDate: currentDate.format(DATE_TIME_FORMAT),
+          salary: 1,
         },
         elemDefault
       );
@@ -185,7 +188,7 @@ describe('JobHistory Service', () => {
       });
 
       it('should add only unique JobHistory to an array', () => {
-        const jobHistoryArray: IJobHistory[] = [{ id: 123 }, { id: 456 }, { id: 29689 }];
+        const jobHistoryArray: IJobHistory[] = [{ id: 123 }, { id: 456 }, { id: 95992 }];
         const jobHistoryCollection: IJobHistory[] = [{ id: 123 }];
         expectedResult = service.addJobHistoryToCollectionIfMissing(jobHistoryCollection, ...jobHistoryArray);
         expect(expectedResult).toHaveLength(3);

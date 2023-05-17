@@ -5,6 +5,7 @@ import static org.springframework.data.relational.core.query.Query.query;
 
 import com.leap.training.gateway.domain.JobHistory;
 import com.leap.training.gateway.repository.rowmapper.DepartmentRowMapper;
+import com.leap.training.gateway.repository.rowmapper.EmployeeRowMapper;
 import com.leap.training.gateway.repository.rowmapper.JobHistoryRowMapper;
 import com.leap.training.gateway.repository.rowmapper.JobRowMapper;
 import com.leap.training.gateway.service.EntityManager;
@@ -42,17 +43,20 @@ class JobHistoryRepositoryInternalImpl implements JobHistoryRepositoryInternal {
 
     private final JobRowMapper jobMapper;
     private final DepartmentRowMapper departmentMapper;
+    private final EmployeeRowMapper employeeMapper;
     private final JobHistoryRowMapper jobhistoryMapper;
 
     private static final Table entityTable = Table.aliased("job_history", EntityManager.ENTITY_ALIAS);
     private static final Table jobTable = Table.aliased("job", "job");
     private static final Table departmentTable = Table.aliased("department", "department");
+    private static final Table employeeTable = Table.aliased("employee", "employee");
 
     public JobHistoryRepositoryInternalImpl(
         R2dbcEntityTemplate template,
         EntityManager entityManager,
         JobRowMapper jobMapper,
         DepartmentRowMapper departmentMapper,
+        EmployeeRowMapper employeeMapper,
         JobHistoryRowMapper jobhistoryMapper
     ) {
         this.db = template.getDatabaseClient();
@@ -60,6 +64,7 @@ class JobHistoryRepositoryInternalImpl implements JobHistoryRepositoryInternal {
         this.entityManager = entityManager;
         this.jobMapper = jobMapper;
         this.departmentMapper = departmentMapper;
+        this.employeeMapper = employeeMapper;
         this.jobhistoryMapper = jobhistoryMapper;
     }
 
@@ -77,6 +82,7 @@ class JobHistoryRepositoryInternalImpl implements JobHistoryRepositoryInternal {
         List<Expression> columns = JobHistorySqlHelper.getColumns(entityTable, EntityManager.ENTITY_ALIAS);
         columns.addAll(JobSqlHelper.getColumns(jobTable, "job"));
         columns.addAll(DepartmentSqlHelper.getColumns(departmentTable, "department"));
+        columns.addAll(EmployeeSqlHelper.getColumns(employeeTable, "employee"));
         SelectFromAndJoinCondition selectFrom = Select
             .builder()
             .select(columns)
@@ -86,7 +92,10 @@ class JobHistoryRepositoryInternalImpl implements JobHistoryRepositoryInternal {
             .equals(Column.create("id", jobTable))
             .leftOuterJoin(departmentTable)
             .on(Column.create("department_id", entityTable))
-            .equals(Column.create("id", departmentTable));
+            .equals(Column.create("id", departmentTable))
+            .leftOuterJoin(employeeTable)
+            .on(Column.create("employee_id", entityTable))
+            .equals(Column.create("id", employeeTable));
 
         String select = entityManager.createSelect(selectFrom, JobHistory.class, pageable, criteria);
         String alias = entityTable.getReferenceName().getReference();
@@ -120,6 +129,7 @@ class JobHistoryRepositoryInternalImpl implements JobHistoryRepositoryInternal {
         JobHistory entity = jobhistoryMapper.apply(row, "e");
         entity.setJob(jobMapper.apply(row, "job"));
         entity.setDepartment(departmentMapper.apply(row, "department"));
+        entity.setEmployee(employeeMapper.apply(row, "employee"));
         return entity;
     }
 
@@ -157,9 +167,11 @@ class JobHistorySqlHelper {
         columns.add(Column.aliased("id", table, columnPrefix + "_id"));
         columns.add(Column.aliased("start_date", table, columnPrefix + "_start_date"));
         columns.add(Column.aliased("end_date", table, columnPrefix + "_end_date"));
+        columns.add(Column.aliased("salary", table, columnPrefix + "_salary"));
 
         columns.add(Column.aliased("job_id", table, columnPrefix + "_job_id"));
         columns.add(Column.aliased("department_id", table, columnPrefix + "_department_id"));
+        columns.add(Column.aliased("employee_id", table, columnPrefix + "_employee_id"));
         return columns;
     }
 }

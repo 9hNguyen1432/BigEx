@@ -105,7 +105,7 @@ describe('Employee e2e test', () => {
 
     cy.get(`[data-cy="phoneNumber"]`).type('Mandatory Generic open').should('have.value', 'Mandatory Generic open');
 
-    cy.get(`[data-cy="hireDate"]`).type('2023-05-15T08:35').should('have.value', '2023-05-15T08:35');
+    cy.get(`[data-cy="hireDate"]`).type('2023-05-16T08:21').should('have.value', '2023-05-16T08:21');
 
     cy.get(`[data-cy="salary"]`).type('24764').should('have.value', '24764');
 

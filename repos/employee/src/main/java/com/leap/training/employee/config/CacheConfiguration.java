@@ -53,6 +53,7 @@ public class CacheConfiguration {
             createCache(cm, com.leap.training.employee.domain.Department.class.getName() + ".jobHistories");
             createCache(cm, com.leap.training.employee.domain.Employee.class.getName());
             createCache(cm, com.leap.training.employee.domain.Employee.class.getName() + ".subEmployees");
+            createCache(cm, com.leap.training.employee.domain.Employee.class.getName() + ".jobHistorys");
             createCache(cm, com.leap.training.employee.domain.Employee.class.getName() + ".managedDepartments");
             createCache(cm, com.leap.training.employee.domain.Job.class.getName());
             createCache(cm, com.leap.training.employee.domain.Job.class.getName() + ".employees");

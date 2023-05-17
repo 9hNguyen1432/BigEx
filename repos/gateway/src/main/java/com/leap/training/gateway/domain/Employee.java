@@ -51,8 +51,15 @@ public class Employee implements Serializable {
     private Long commissionPct;
 
     @Transient
-    @JsonIgnoreProperties(value = { "subEmployees", "managedDepartments", "job", "manager", "department" }, allowSetters = true)
+    @JsonIgnoreProperties(
+        value = { "subEmployees", "jobHistorys", "managedDepartments", "job", "manager", "department" },
+        allowSetters = true
+    )
     private Set<Employee> subEmployees = new HashSet<>();
+
+    @Transient
+    @JsonIgnoreProperties(value = { "job", "department", "employee" }, allowSetters = true)
+    private Set<JobHistory> jobHistorys = new HashSet<>();
 
     @Transient
     @JsonIgnoreProperties(value = { "employees", "jobHistories", "manager", "location" }, allowSetters = true)
@@ -63,7 +70,10 @@ public class Employee implements Serializable {
     private Job job;
 
     @Transient
-    @JsonIgnoreProperties(value = { "subEmployees", "managedDepartments", "job", "manager", "department" }, allowSetters = true)
+    @JsonIgnoreProperties(
+        value = { "subEmployees", "jobHistorys", "managedDepartments", "job", "manager", "department" },
+        allowSetters = true
+    )
     private Employee manager;
 
     @Transient
@@ -213,6 +223,37 @@ public class Employee implements Serializable {
     public Employee removeSubEmployees(Employee employee) {
         this.subEmployees.remove(employee);
         employee.setManager(null);
+        return this;
+    }
+
+    public Set<JobHistory> getJobHistorys() {
+        return this.jobHistorys;
+    }
+
+    public void setJobHistorys(Set<JobHistory> jobHistories) {
+        if (this.jobHistorys != null) {
+            this.jobHistorys.forEach(i -> i.setEmployee(null));
+        }
+        if (jobHistories != null) {
+            jobHistories.forEach(i -> i.setEmployee(this));
+        }
+        this.jobHistorys = jobHistories;
+    }
+
+    public Employee jobHistorys(Set<JobHistory> jobHistories) {
+        this.setJobHistorys(jobHistories);
+        return this;
+    }
+
+    public Employee addJobHistorys(JobHistory jobHistory) {
+        this.jobHistorys.add(jobHistory);
+        jobHistory.setEmployee(this);
+        return this;
+    }
+
+    public Employee removeJobHistorys(JobHistory jobHistory) {
+        this.jobHistorys.remove(jobHistory);
+        jobHistory.setEmployee(null);
         return this;
     }
 

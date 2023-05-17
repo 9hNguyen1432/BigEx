@@ -42,12 +42,12 @@
     "otherModules": [],
     "pages": [],
     "nativeLanguage": "en",
-    "creationTimestamp": 1684221817738,
+    "creationTimestamp": 1684307352074,
     "monorepository": true,
     "skipCommitHook": true,
-    "jwtSecretKey": "YTdlYjA3ZmJlNTkwMjA2YTQwNWM5ZTUzNTNjZjc0YzIzOTBjY2QzMWRjMjg1NzEwZGQ5MWE0NzNlMDVhMDQxMjhjYzQ1ZDFkZDc1NDY1ZGYzMTJlMTEwM2IwM2UyZjJhMTI5MWY2MzA0MWY1NWRiNjU3ZmU3MjlhMWVjZjllYjE=",
+    "jwtSecretKey": "OWIwNjQwZjM3NGM3Y2NmYmMzZjI3ZmU2YTZjMmJkNmU5ZTdkOWM1OTkzMDk4ZDBkNmViZjBmYTliY2I3MmJmY2NkODA3ODM0NDg3NTdkNTI4N2MzN2E4ZjkxYzYxZTkyODcxNzJkMGEyM2M0MDY1ZjExYzU1NzQxN2YzOTYzZGY=",
     "devServerPort": 4201,
     "entities": ["Country", "Department", "Employee", "Job", "JobHistory", "Location", "Region"],
-    "lastLiquibaseTimestamp": 1684222237000
+    "lastLiquibaseTimestamp": 1684307772000
   }
 }

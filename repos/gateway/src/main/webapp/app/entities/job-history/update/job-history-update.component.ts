@@ -14,6 +14,8 @@ import { IJob } from 'app/entities/job/job.model';
 import { JobService } from 'app/entities/job/service/job.service';
 import { IDepartment } from 'app/entities/department/department.model';
 import { DepartmentService } from 'app/entities/department/service/department.service';
+import { IEmployee } from 'app/entities/employee/employee.model';
+import { EmployeeService } from 'app/entities/employee/service/employee.service';
 
 @Component({
   selector: 'jhi-job-history-update',
@@ -24,19 +26,23 @@ export class JobHistoryUpdateComponent implements OnInit {
 
   jobsSharedCollection: IJob[] = [];
   departmentsSharedCollection: IDepartment[] = [];
+  employeesSharedCollection: IEmployee[] = [];
 
   editForm = this.fb.group({
     id: [],
     startDate: [],
     endDate: [],
+    salary: [],
     job: [],
     department: [],
+    employee: [],
   });
 
   constructor(
     protected jobHistoryService: JobHistoryService,
     protected jobService: JobService,
     protected departmentService: DepartmentService,
+    protected employeeService: EmployeeService,
     protected activatedRoute: ActivatedRoute,
     protected fb: FormBuilder
   ) {}
@@ -77,6 +83,10 @@ export class JobHistoryUpdateComponent implements OnInit {
     return item.id!;
   }
 
+  trackEmployeeById(index: number, item: IEmployee): number {
+    return item.id!;
+  }
+
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IJobHistory>>): void {
     result.pipe(finalize(() => this.onSaveFinalize())).subscribe(
       () => this.onSaveSuccess(),
@@ -101,14 +111,20 @@ export class JobHistoryUpdateComponent implements OnInit {
       id: jobHistory.id,
       startDate: jobHistory.startDate ? jobHistory.startDate.format(DATE_TIME_FORMAT) : null,
       endDate: jobHistory.endDate ? jobHistory.endDate.format(DATE_TIME_FORMAT) : null,
+      salary: jobHistory.salary,
       job: jobHistory.job,
       department: jobHistory.department,
+      employee: jobHistory.employee,
     });
 
     this.jobsSharedCollection = this.jobService.addJobToCollectionIfMissing(this.jobsSharedCollection, jobHistory.job);
     this.departmentsSharedCollection = this.departmentService.addDepartmentToCollectionIfMissing(
       this.departmentsSharedCollection,
       jobHistory.department
+    );
+    this.employeesSharedCollection = this.employeeService.addEmployeeToCollectionIfMissing(
+      this.employeesSharedCollection,
+      jobHistory.employee
     );
   }
 
@@ -128,6 +144,16 @@ export class JobHistoryUpdateComponent implements OnInit {
         )
       )
       .subscribe((departments: IDepartment[]) => (this.departmentsSharedCollection = departments));
+
+    this.employeeService
+      .query()
+      .pipe(map((res: HttpResponse<IEmployee[]>) => res.body ?? []))
+      .pipe(
+        map((employees: IEmployee[]) =>
+          this.employeeService.addEmployeeToCollectionIfMissing(employees, this.editForm.get('employee')!.value)
+        )
+      )
+      .subscribe((employees: IEmployee[]) => (this.employeesSharedCollection = employees));
   }
 
   protected createFromForm(): IJobHistory {
@@ -136,8 +162,10 @@ export class JobHistoryUpdateComponent implements OnInit {
       id: this.editForm.get(['id'])!.value,
       startDate: this.editForm.get(['startDate'])!.value ? dayjs(this.editForm.get(['startDate'])!.value, DATE_TIME_FORMAT) : undefined,
       endDate: this.editForm.get(['endDate'])!.value ? dayjs(this.editForm.get(['endDate'])!.value, DATE_TIME_FORMAT) : undefined,
+      salary: this.editForm.get(['salary'])!.value,
       job: this.editForm.get(['job'])!.value,
       department: this.editForm.get(['department'])!.value,
+      employee: this.editForm.get(['employee'])!.value,
     };
   }
 }

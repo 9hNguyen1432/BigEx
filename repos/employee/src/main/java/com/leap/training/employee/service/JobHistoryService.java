@@ -54,6 +54,9 @@ public class JobHistoryService {
                 if (jobHistory.getEndDate() != null) {
                     existingJobHistory.setEndDate(jobHistory.getEndDate());
                 }
+                if (jobHistory.getSalary() != null) {
+                    existingJobHistory.setSalary(jobHistory.getSalary());
+                }
 
                 return existingJobHistory;
             })

@@ -97,13 +97,17 @@ describe('JobHistory e2e test', () => {
     cy.get(entityCreateButtonSelector).click({ force: true });
     cy.getEntityCreateUpdateHeading('JobHistory');
 
-    cy.get(`[data-cy="startDate"]`).type('2023-05-16T07:20').should('have.value', '2023-05-16T07:20');
+    cy.get(`[data-cy="startDate"]`).type('2023-05-17T07:06').should('have.value', '2023-05-17T07:06');
 
-    cy.get(`[data-cy="endDate"]`).type('2023-05-15T21:29').should('have.value', '2023-05-15T21:29');
+    cy.get(`[data-cy="endDate"]`).type('2023-05-16T21:14').should('have.value', '2023-05-16T21:14');
+
+    cy.get(`[data-cy="salary"]`).type('61032').should('have.value', '61032');
 
     cy.setFieldSelectToLastOfEntity('job');
 
     cy.setFieldSelectToLastOfEntity('department');
+
+    cy.setFieldSelectToLastOfEntity('employee');
 
     cy.get(entityCreateSaveButtonSelector).click({ force: true });
     cy.scrollTo('top', { ensureScrollable: false });

@@ -26,6 +26,9 @@ public class JobHistory implements Serializable {
     @Column("end_date")
     private Instant endDate;
 
+    @Column("salary")
+    private Long salary;
+
     @Transient
     @JsonIgnoreProperties(value = { "employees", "jobHistories" }, allowSetters = true)
     private Job job;
@@ -34,11 +37,21 @@ public class JobHistory implements Serializable {
     @JsonIgnoreProperties(value = { "employees", "jobHistories", "manager", "location" }, allowSetters = true)
     private Department department;
 
+    @Transient
+    @JsonIgnoreProperties(
+        value = { "subEmployees", "jobHistorys", "managedDepartments", "job", "manager", "department" },
+        allowSetters = true
+    )
+    private Employee employee;
+
     @Column("job_id")
     private Long jobId;
 
     @Column("department_id")
     private Long departmentId;
+
+    @Column("employee_id")
+    private Long employeeId;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -81,6 +94,19 @@ public class JobHistory implements Serializable {
         this.endDate = endDate;
     }
 
+    public Long getSalary() {
+        return this.salary;
+    }
+
+    public JobHistory salary(Long salary) {
+        this.setSalary(salary);
+        return this;
+    }
+
+    public void setSalary(Long salary) {
+        this.salary = salary;
+    }
+
     public Job getJob() {
         return this.job;
     }
@@ -109,6 +135,20 @@ public class JobHistory implements Serializable {
         return this;
     }
 
+    public Employee getEmployee() {
+        return this.employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+        this.employeeId = employee != null ? employee.getId() : null;
+    }
+
+    public JobHistory employee(Employee employee) {
+        this.setEmployee(employee);
+        return this;
+    }
+
     public Long getJobId() {
         return this.jobId;
     }
@@ -123,6 +163,14 @@ public class JobHistory implements Serializable {
 
     public void setDepartmentId(Long department) {
         this.departmentId = department;
+    }
+
+    public Long getEmployeeId() {
+        return this.employeeId;
+    }
+
+    public void setEmployeeId(Long employee) {
+        this.employeeId = employee;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
@@ -151,6 +199,7 @@ public class JobHistory implements Serializable {
             "id=" + getId() +
             ", startDate='" + getStartDate() + "'" +
             ", endDate='" + getEndDate() + "'" +
+            ", salary=" + getSalary() +
             "}";
     }
 }

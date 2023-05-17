@@ -39,9 +39,15 @@
           <th scope="col" jhiSortBy="endDate">
             <span jhiTranslate="gatewayApp.jobHistory.endDate">End Date</span> <fa-icon icon="sort"></fa-icon>
           </th>
+          <th scope="col" jhiSortBy="salary">
+            <span jhiTranslate="gatewayApp.jobHistory.salary">Salary</span> <fa-icon icon="sort"></fa-icon>
+          </th>
           <th scope="col" jhiSortBy="job.id"><span jhiTranslate="gatewayApp.jobHistory.job">Job</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="department.id">
             <span jhiTranslate="gatewayApp.jobHistory.department">Department</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="employee.id">
+            <span jhiTranslate="gatewayApp.jobHistory.employee">Employee</span> <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col"></th>
         </tr>
@@ -53,6 +59,7 @@
           </td>
           <td>{{ jobHistory.startDate | formatMediumDatetime }}</td>
           <td>{{ jobHistory.endDate | formatMediumDatetime }}</td>
+          <td>{{ jobHistory.salary }}</td>
           <td>
             <div *ngIf="jobHistory.job">
               <a [routerLink]="['/job', jobHistory.job?.id, 'view']">{{ jobHistory.job?.id }}</a>
@@ -61,6 +68,11 @@
           <td>
             <div *ngIf="jobHistory.department">
               <a [routerLink]="['/department', jobHistory.department?.id, 'view']">{{ jobHistory.department?.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="jobHistory.employee">
+              <a [routerLink]="['/employee', jobHistory.employee?.id, 'view']">{{ jobHistory.employee?.id }}</a>
             </div>
           </td>
           <td class="text-right">

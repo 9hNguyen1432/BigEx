@@ -8,6 +8,10 @@
     {
       "fieldName": "endDate",
       "fieldType": "Instant"
+    },
+    {
+      "fieldName": "salary",
+      "fieldType": "Long"
     }
   ],
   "relationships": [
@@ -22,6 +26,12 @@
       "otherEntityName": "department",
       "otherEntityRelationshipName": "jobHistories",
       "relationshipName": "department"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "employee",
+      "otherEntityRelationshipName": "jobHistorys",
+      "relationshipName": "employee"
     }
   ],
   "entityTableName": "job_history",
@@ -34,5 +44,5 @@
   "embedded": false,
   "applications": ["employee", "gateway"],
   "databaseType": "sql",
-  "changelogDate": "20230516072837"
+  "changelogDate": "20230517071412"
 }

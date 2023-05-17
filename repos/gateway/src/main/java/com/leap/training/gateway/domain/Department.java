@@ -27,15 +27,21 @@ public class Department implements Serializable {
     private String departmentName;
 
     @Transient
-    @JsonIgnoreProperties(value = { "subEmployees", "managedDepartments", "job", "manager", "department" }, allowSetters = true)
+    @JsonIgnoreProperties(
+        value = { "subEmployees", "jobHistorys", "managedDepartments", "job", "manager", "department" },
+        allowSetters = true
+    )
     private Set<Employee> employees = new HashSet<>();
 
     @Transient
-    @JsonIgnoreProperties(value = { "job", "department" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "job", "department", "employee" }, allowSetters = true)
     private Set<JobHistory> jobHistories = new HashSet<>();
 
     @Transient
-    @JsonIgnoreProperties(value = { "subEmployees", "managedDepartments", "job", "manager", "department" }, allowSetters = true)
+    @JsonIgnoreProperties(
+        value = { "subEmployees", "jobHistorys", "managedDepartments", "job", "manager", "department" },
+        allowSetters = true
+    )
     private Employee manager;
 
     @Transient

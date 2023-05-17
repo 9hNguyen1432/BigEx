@@ -37,6 +37,9 @@ class JobHistoryResourceIT {
     private static final Instant DEFAULT_END_DATE = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_END_DATE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
+    private static final Long DEFAULT_SALARY = 1L;
+    private static final Long UPDATED_SALARY = 2L;
+
     private static final String ENTITY_API_URL = "/api/job-histories";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -61,7 +64,7 @@ class JobHistoryResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static JobHistory createEntity(EntityManager em) {
-        JobHistory jobHistory = new JobHistory().startDate(DEFAULT_START_DATE).endDate(DEFAULT_END_DATE);
+        JobHistory jobHistory = new JobHistory().startDate(DEFAULT_START_DATE).endDate(DEFAULT_END_DATE).salary(DEFAULT_SALARY);
         return jobHistory;
     }
 
@@ -72,7 +75,7 @@ class JobHistoryResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static JobHistory createUpdatedEntity(EntityManager em) {
-        JobHistory jobHistory = new JobHistory().startDate(UPDATED_START_DATE).endDate(UPDATED_END_DATE);
+        JobHistory jobHistory = new JobHistory().startDate(UPDATED_START_DATE).endDate(UPDATED_END_DATE).salary(UPDATED_SALARY);
         return jobHistory;
     }
 
@@ -96,6 +99,7 @@ class JobHistoryResourceIT {
         JobHistory testJobHistory = jobHistoryList.get(jobHistoryList.size() - 1);
         assertThat(testJobHistory.getStartDate()).isEqualTo(DEFAULT_START_DATE);
         assertThat(testJobHistory.getEndDate()).isEqualTo(DEFAULT_END_DATE);
+        assertThat(testJobHistory.getSalary()).isEqualTo(DEFAULT_SALARY);
     }
 
     @Test
@@ -129,7 +133,8 @@ class JobHistoryResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(jobHistory.getId().intValue())))
             .andExpect(jsonPath("$.[*].startDate").value(hasItem(DEFAULT_START_DATE.toString())))
-            .andExpect(jsonPath("$.[*].endDate").value(hasItem(DEFAULT_END_DATE.toString())));
+            .andExpect(jsonPath("$.[*].endDate").value(hasItem(DEFAULT_END_DATE.toString())))
+            .andExpect(jsonPath("$.[*].salary").value(hasItem(DEFAULT_SALARY.intValue())));
     }
 
     @Test
@@ -145,7 +150,8 @@ class JobHistoryResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(jobHistory.getId().intValue()))
             .andExpect(jsonPath("$.startDate").value(DEFAULT_START_DATE.toString()))
-            .andExpect(jsonPath("$.endDate").value(DEFAULT_END_DATE.toString()));
+            .andExpect(jsonPath("$.endDate").value(DEFAULT_END_DATE.toString()))
+            .andExpect(jsonPath("$.salary").value(DEFAULT_SALARY.intValue()));
     }
 
     @Test
@@ -167,7 +173,7 @@ class JobHistoryResourceIT {
         JobHistory updatedJobHistory = jobHistoryRepository.findById(jobHistory.getId()).get();
         // Disconnect from session so that the updates on updatedJobHistory are not directly saved in db
         em.detach(updatedJobHistory);
-        updatedJobHistory.startDate(UPDATED_START_DATE).endDate(UPDATED_END_DATE);
+        updatedJobHistory.startDate(UPDATED_START_DATE).endDate(UPDATED_END_DATE).salary(UPDATED_SALARY);
 
         restJobHistoryMockMvc
             .perform(
@@ -183,6 +189,7 @@ class JobHistoryResourceIT {
         JobHistory testJobHistory = jobHistoryList.get(jobHistoryList.size() - 1);
         assertThat(testJobHistory.getStartDate()).isEqualTo(UPDATED_START_DATE);
         assertThat(testJobHistory.getEndDate()).isEqualTo(UPDATED_END_DATE);
+        assertThat(testJobHistory.getSalary()).isEqualTo(UPDATED_SALARY);
     }
 
     @Test
@@ -267,6 +274,7 @@ class JobHistoryResourceIT {
         JobHistory testJobHistory = jobHistoryList.get(jobHistoryList.size() - 1);
         assertThat(testJobHistory.getStartDate()).isEqualTo(DEFAULT_START_DATE);
         assertThat(testJobHistory.getEndDate()).isEqualTo(DEFAULT_END_DATE);
+        assertThat(testJobHistory.getSalary()).isEqualTo(DEFAULT_SALARY);
     }
 
     @Test
@@ -281,7 +289,7 @@ class JobHistoryResourceIT {
         JobHistory partialUpdatedJobHistory = new JobHistory();
         partialUpdatedJobHistory.setId(jobHistory.getId());
 
-        partialUpdatedJobHistory.startDate(UPDATED_START_DATE).endDate(UPDATED_END_DATE);
+        partialUpdatedJobHistory.startDate(UPDATED_START_DATE).endDate(UPDATED_END_DATE).salary(UPDATED_SALARY);
 
         restJobHistoryMockMvc
             .perform(
@@ -297,6 +305,7 @@ class JobHistoryResourceIT {
         JobHistory testJobHistory = jobHistoryList.get(jobHistoryList.size() - 1);
         assertThat(testJobHistory.getStartDate()).isEqualTo(UPDATED_START_DATE);
         assertThat(testJobHistory.getEndDate()).isEqualTo(UPDATED_END_DATE);
+        assertThat(testJobHistory.getSalary()).isEqualTo(UPDATED_SALARY);
     }
 
     @Test

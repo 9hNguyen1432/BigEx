@@ -29,6 +29,12 @@ public interface JobHistoryRepository extends R2dbcRepository<JobHistory, Long>,
     @Query("SELECT * FROM job_history entity WHERE entity.department_id IS NULL")
     Flux<JobHistory> findAllWhereDepartmentIsNull();
 
+    @Query("SELECT * FROM job_history entity WHERE entity.employee_id = :id")
+    Flux<JobHistory> findByEmployee(Long id);
+
+    @Query("SELECT * FROM job_history entity WHERE entity.employee_id IS NULL")
+    Flux<JobHistory> findAllWhereEmployeeIsNull();
+
     // just to avoid having unambigous methods
     @Override
     Flux<JobHistory> findAll();

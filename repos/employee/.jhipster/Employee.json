@@ -40,6 +40,12 @@
     },
     {
       "relationshipType": "one-to-many",
+      "otherEntityName": "jobHistory",
+      "otherEntityRelationshipName": "employee",
+      "relationshipName": "jobHistorys"
+    },
+    {
+      "relationshipType": "one-to-many",
       "otherEntityName": "department",
       "otherEntityRelationshipName": "manager",
       "relationshipName": "managedDepartments"
@@ -76,5 +82,5 @@
   "microserviceName": "employee",
   "clientRootFolder": "employee",
   "databaseType": "sql",
-  "changelogDate": "20230516072637"
+  "changelogDate": "20230517071212"
 }

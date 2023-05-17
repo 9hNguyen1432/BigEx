@@ -31,16 +31,22 @@ public class Department implements Serializable {
 
     @OneToMany(mappedBy = "department")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "subEmployees", "managedDepartments", "job", "manager", "department" }, allowSetters = true)
+    @JsonIgnoreProperties(
+        value = { "subEmployees", "jobHistorys", "managedDepartments", "job", "manager", "department" },
+        allowSetters = true
+    )
     private Set<Employee> employees = new HashSet<>();
 
     @OneToMany(mappedBy = "department")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "job", "department" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "job", "department", "employee" }, allowSetters = true)
     private Set<JobHistory> jobHistories = new HashSet<>();
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "subEmployees", "managedDepartments", "job", "manager", "department" }, allowSetters = true)
+    @JsonIgnoreProperties(
+        value = { "subEmployees", "jobHistorys", "managedDepartments", "job", "manager", "department" },
+        allowSetters = true
+    )
     private Employee manager;
 
     @ManyToOne

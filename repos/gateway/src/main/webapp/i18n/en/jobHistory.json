@@ -20,8 +20,10 @@
       "id": "ID",
       "startDate": "Start Date",
       "endDate": "End Date",
+      "salary": "Salary",
       "job": "Job",
-      "department": "Department"
+      "department": "Department",
+      "employee": "Employee"
     }
   }
 }

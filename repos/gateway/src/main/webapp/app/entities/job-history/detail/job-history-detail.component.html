@@ -22,6 +22,10 @@
         <dd>
           <span>{{ jobHistory.endDate | formatMediumDatetime }}</span>
         </dd>
+        <dt><span jhiTranslate="gatewayApp.jobHistory.salary">Salary</span></dt>
+        <dd>
+          <span>{{ jobHistory.salary }}</span>
+        </dd>
         <dt><span jhiTranslate="gatewayApp.jobHistory.job">Job</span></dt>
         <dd>
           <div *ngIf="jobHistory.job">
@@ -32,6 +36,12 @@
         <dd>
           <div *ngIf="jobHistory.department">
             <a [routerLink]="['/department', jobHistory.department?.id, 'view']">{{ jobHistory.department?.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.jobHistory.employee">Employee</span></dt>
+        <dd>
+          <div *ngIf="jobHistory.employee">
+            <a [routerLink]="['/employee', jobHistory.employee?.id, 'view']">{{ jobHistory.employee?.id }}</a>
           </div>
         </dd>
       </dl>

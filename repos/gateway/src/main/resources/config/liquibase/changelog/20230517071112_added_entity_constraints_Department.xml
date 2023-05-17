@@ -6,7 +6,7 @@
     <!--
         Added the constraints for entity Department.
     -->
-    <changeSet id="20230516072537-2" author="jhipster">
+    <changeSet id="20230517071112-2" author="jhipster">
 
         <addForeignKeyConstraint baseColumnNames="manager_id"
                                  baseTableName="department"
