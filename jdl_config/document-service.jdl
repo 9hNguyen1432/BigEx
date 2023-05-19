@@ -1,0 +1,38 @@
+
+application{
+    config{
+        baseName document
+        applicationType microservice
+        packageName com.leap.training.gateway
+        authenticationType jwt
+        serviceDiscoveryType eureka
+        buildTool maven
+        databaseType sql
+        devDatabaseType h2Disk
+        clientFramework angularX
+        prodDatabaseType oracle
+        serverPort 8890
+        testFrameworks [cypress]        
+        skipUserManagement false
+    }
+    entities Document, DocumentType
+}
+
+
+
+entity Document{
+	documentName String
+	employeeId Long
+}
+entity DocumentType{
+	description String
+}
+
+relationship OneToMany {
+  DocumentType to Document{Type}
+}
+
+// Set pagination options
+paginate * with pagination
+// Set service options
+service * with serviceClass
