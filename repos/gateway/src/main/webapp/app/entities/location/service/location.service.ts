@@ -12,7 +12,7 @@ export type EntityArrayResponseType = HttpResponse<ILocation[]>;
 
 @Injectable({ providedIn: 'root' })
 export class LocationService {
-  protected resourceUrl = this.applicationConfigService.getEndpointFor('api/locations');
+  protected resourceUrl = this.applicationConfigService.getEndpointFor('api/locations','employee');
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 

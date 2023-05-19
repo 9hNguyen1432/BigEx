@@ -14,7 +14,7 @@ export type EntityArrayResponseType = HttpResponse<IJobHistory[]>;
 
 @Injectable({ providedIn: 'root' })
 export class JobHistoryService {
-  protected resourceUrl = this.applicationConfigService.getEndpointFor('api/job-histories');
+  protected resourceUrl = this.applicationConfigService.getEndpointFor('api/job-histories','employee');
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 

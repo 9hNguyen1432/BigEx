@@ -48,7 +48,6 @@ entity Country {
 // an ignored comment
 /** not an ignored comment */
 entity Location {
-
 	streetAddress String
 	postalCode String
 	city String
@@ -85,18 +84,21 @@ entity Job {
 }
 
 entity JobHistory {
-
 	startDate Instant
 	endDate Instant
+    salary Long
 }
 
 relationship OneToMany {
+ 
+
   Job{Employees} to Employee{Job}
   Employee{SubEmployees} to Employee{Manager}
   Department{Employees} to Employee{Department}
 
   Job{JobHistories} to JobHistory{Job}
   Department{JobHistories} to JobHistory{Department}
+  Employee{JobHistorys} to JobHistory{Employee}
 
   Employee{ManagedDepartments} to Department{Manager}
   Location{Departments} to Department{Location}

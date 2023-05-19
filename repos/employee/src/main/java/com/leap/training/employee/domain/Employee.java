@@ -357,4 +357,8 @@ public class Employee implements Serializable {
             ", commissionPct=" + getCommissionPct() +
             "}";
     }
+
+    public Employee clone(){
+        return this;
+    }
 }

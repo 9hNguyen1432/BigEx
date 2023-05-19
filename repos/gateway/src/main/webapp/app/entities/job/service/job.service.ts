@@ -12,7 +12,7 @@ export type EntityArrayResponseType = HttpResponse<IJob[]>;
 
 @Injectable({ providedIn: 'root' })
 export class JobService {
-  protected resourceUrl = this.applicationConfigService.getEndpointFor('api/jobs');
+  protected resourceUrl = this.applicationConfigService.getEndpointFor('api/jobs','employee');
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
