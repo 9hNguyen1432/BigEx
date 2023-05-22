@@ -30,13 +30,13 @@ export class DocumentService {
     });
   }
 
-  find(id: number): Observable<EntityResponseType> {
-    return this.http.get<IDocument>(`${this.resourceUrl}/${id}`, { observe: 'response' });
+  find(employeeId: string, id: number): Observable<EntityResponseType> {
+    return this.http.get<IDocument>(`${this.resourceUrl}/${employeeId}/${id}`, { observe: 'response' });
   }
 
-  query(req?: any): Observable<EntityArrayResponseType> {
+  query(employeeId: string, req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
-    return this.http.get<IDocument[]>(this.resourceUrl, { params: options, observe: 'response' });
+    return this.http.get<IDocument[]>(`${this.resourceUrl}/${employeeId}`, { params: options, observe: 'response' });
   }
 
   delete(id: number): Observable<HttpResponse<{}>> {

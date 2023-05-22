@@ -12,9 +12,10 @@ export class DocumentRoutingResolveService implements Resolve<IDocument> {
   constructor(protected service: DocumentService, protected router: Router) {}
 
   resolve(route: ActivatedRouteSnapshot): Observable<IDocument> | Observable<never> {
+    const emid = route.params['emid'];
     const id = route.params['id'];
     if (id) {
-      return this.service.find(id).pipe(
+      return this.service.find(emid, id).pipe(
         mergeMap((document: HttpResponse<Document>) => {
           if (document.body) {
             return of(document.body);

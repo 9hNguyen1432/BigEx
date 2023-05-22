@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { combineLatest } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -23,20 +23,23 @@ export class DocumentComponent implements OnInit {
   predicate!: string;
   ascending!: boolean;
   ngbPaginationPage = 1;
+  emID: string;
 
   constructor(
     protected documentService: DocumentService,
     protected activatedRoute: ActivatedRoute,
     protected router: Router,
     protected modalService: NgbModal
-  ) {}
+  ) {
+    this.emID = "";
+  }
 
   loadPage(page?: number, dontNavigate?: boolean): void {
     this.isLoading = true;
     const pageToLoad: number = page ?? this.page ?? 1;
 
     this.documentService
-      .query({
+      .query(this.emID,{
         page: pageToLoad - 1,
         size: this.itemsPerPage,
         sort: this.sort(),
@@ -54,8 +57,14 @@ export class DocumentComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    //get employeename
+    this.activatedRoute.params.subscribe(params => {
+      this.emID = params["emid"];
+    });
     this.handleNavigation();
+
   }
+  
 
   trackId(index: number, item: IDocument): number {
     return item.id!;

@@ -9,7 +9,7 @@ import { DocumentRoutingResolveService } from './document-routing-resolve.servic
 
 const documentRoute: Routes = [
   {
-    path: '',
+    path: ':emid',
     component: DocumentComponent,
     data: {
       defaultSort: 'id,asc',
@@ -17,23 +17,23 @@ const documentRoute: Routes = [
     canActivate: [UserRouteAccessService],
   },
   {
-    path: ':id/view',
+    path: ':emid/:id/view',
     component: DocumentDetailComponent,
     resolve: {
       document: DocumentRoutingResolveService,
     },
     canActivate: [UserRouteAccessService],
   },
+  // {
+  //   path: 'new',
+  //   component: DocumentUpdateComponent,
+  //   resolve: {
+  //     document: DocumentRoutingResolveService,
+  //   },
+  //   canActivate: [UserRouteAccessService],
+  // },
   {
-    path: 'new',
-    component: DocumentUpdateComponent,
-    resolve: {
-      document: DocumentRoutingResolveService,
-    },
-    canActivate: [UserRouteAccessService],
-  },
-  {
-    path: ':id/edit',
+    path: ':emid/:id/edit',
     component: DocumentUpdateComponent,
     resolve: {
       document: DocumentRoutingResolveService,

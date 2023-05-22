@@ -8,6 +8,7 @@ import { isPresent } from 'app/core/util/operators';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
 import { IEmployee, getEmployeeIdentifier } from '../employee.model';
+import { contains } from 'cypress/types/jquery';
 
 export type EntityResponseType = HttpResponse<IEmployee>;
 export type EntityArrayResponseType = HttpResponse<IEmployee[]>;

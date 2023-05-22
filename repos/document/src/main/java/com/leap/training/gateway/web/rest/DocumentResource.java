@@ -142,10 +142,10 @@ public class DocumentResource {
      * @param pageable the pagination information.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of documents in body.
      */
-    @GetMapping("/documents")
-    public ResponseEntity<List<Document>> getAllDocuments(Pageable pageable) {
+    @GetMapping("/documents/{emid}")
+    public ResponseEntity<List<Document>> getAllDocuments(Pageable pageable,@PathVariable Long emid) {
         log.debug("REST request to get a page of Documents");
-        Page<Document> page = documentService.findAll(pageable);
+        Page<Document> page = documentService.findAllByEmployeeId(pageable, emid);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
@@ -156,8 +156,8 @@ public class DocumentResource {
      * @param id the id of the document to retrieve.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the document, or with status {@code 404 (Not Found)}.
      */
-    @GetMapping("/documents/{id}")
-    public ResponseEntity<Document> getDocument(@PathVariable Long id) {
+    @GetMapping("/documents/{emid}/{id}")
+    public ResponseEntity<Document> getDocument(@PathVariable Long emid, @PathVariable Long id) {
         log.debug("REST request to get Document : {}", id);
         Optional<Document> document = documentService.findOne(id);
         return ResponseUtil.wrapOrNotFound(document);

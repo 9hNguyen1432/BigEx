@@ -2,9 +2,7 @@ package com.leap.training.employee.config;
 
 import com.leap.training.employee.security.*;
 import com.leap.training.employee.security.jwt.*;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
