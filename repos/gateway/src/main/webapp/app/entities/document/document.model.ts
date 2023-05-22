@@ -1,4 +1,5 @@
 import { IDocumentType } from 'app/entities/document-type/document-type.model';
+import { doc } from 'prettier';
 
 export interface IDocument {
   id?: number;
@@ -15,7 +16,10 @@ export class Document implements IDocument {
     public type?: IDocumentType | null
   ) {}
 }
-
+export function getDocumentOwner(document: IDocument): number | undefined {
+  return document.employeeId!;
+}
 export function getDocumentIdentifier(document: IDocument): number | undefined {
   return document.id;
 }
+

@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { isPresent } from 'app/core/util/operators';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
-import { IDocument, getDocumentIdentifier } from '../document.model';
+import { IDocument, getDocumentIdentifier, getDocumentOwner } from '../document.model';
 
 export type EntityResponseType = HttpResponse<IDocument>;
 export type EntityArrayResponseType = HttpResponse<IDocument[]>;
@@ -20,12 +20,12 @@ export class DocumentService {
     return this.http.post<IDocument>(this.resourceUrl, document, { observe: 'response' });
   }
 
-  update(document: IDocument): Observable<EntityResponseType> {
-    return this.http.put<IDocument>(`${this.resourceUrl}/${getDocumentIdentifier(document) as number}`, document, { observe: 'response' });
+  update(employeeId: string, document: IDocument): Observable<EntityResponseType> {
+    return this.http.put<IDocument>(`${this.resourceUrl}/${employeeId}/${getDocumentIdentifier(document) as number}`, document, { observe: 'response' });
   }
 
   partialUpdate(document: IDocument): Observable<EntityResponseType> {
-    return this.http.patch<IDocument>(`${this.resourceUrl}/${getDocumentIdentifier(document) as number}`, document, {
+    return this.http.patch<IDocument>(`${this.resourceUrl}/${getDocumentOwner(document) as number}/${getDocumentIdentifier(document) as number}`, document, {
       observe: 'response',
     });
   }

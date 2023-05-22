@@ -76,7 +76,7 @@ public class DocumentResource {
      * or with status {@code 500 (Internal Server Error)} if the document couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PutMapping("/documents/{id}")
+    @PutMapping("/documents/{emid}/{id}")
     public ResponseEntity<Document> updateDocument(
         @PathVariable(value = "id", required = false) final Long id,
         @RequestBody Document document
@@ -111,7 +111,7 @@ public class DocumentResource {
      * or with status {@code 500 (Internal Server Error)} if the document couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PatchMapping(value = "/documents/{id}", consumes = { "application/json", "application/merge-patch+json" })
+    @PatchMapping(value = "/documents/{emid}/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<Document> partialUpdateDocument(
         @PathVariable(value = "id", required = false) final Long id,
         @RequestBody Document document

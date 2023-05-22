@@ -49,7 +49,7 @@ export class DocumentUpdateComponent implements OnInit {
     this.isSaving = true;
     const document = this.createFromForm();
     if (document.id !== undefined) {
-      this.subscribeToSaveResponse(this.documentService.update(document));
+      this.subscribeToSaveResponse(this.documentService.update(document.employeeId!.toString(), document));
     } else {
       this.subscribeToSaveResponse(this.documentService.create(document));
     }
