@@ -108,7 +108,7 @@ export class DocumentComponent implements OnInit {
     this.totalItems = Number(headers.get('X-Total-Count'));
     this.page = page;
     if (navigate) {
-      this.router.navigate(['/document'], {
+      this.router.navigate(['/document', this.emID], {
         queryParams: {
           page: this.page,
           size: this.itemsPerPage,

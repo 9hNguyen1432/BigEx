@@ -2,13 +2,18 @@ package com.leap.training.gateway.web.rest;
 
 import com.leap.training.gateway.domain.Document;
 import com.leap.training.gateway.repository.DocumentRepository;
+import com.leap.training.gateway.security.AuthoritiesConstants;
 import com.leap.training.gateway.service.DocumentService;
 import com.leap.training.gateway.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.security.Principal;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,6 +22,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.jhipster.web.util.HeaderUtil;
@@ -46,6 +52,11 @@ public class DocumentResource {
         this.documentRepository = documentRepository;
     }
 
+    public String currentUserNameSimple(HttpServletRequest request) {
+        Principal principal = request.getUserPrincipal();
+        return principal.getName();
+    }
+
     /**
      * {@code POST  /documents} : Create a new document.
      *
@@ -53,7 +64,9 @@ public class DocumentResource {
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new document, or with status {@code 400 (Bad Request)} if the document has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
+
     @PostMapping("/documents")
+    @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<Document> createDocument(@RequestBody Document document) throws URISyntaxException {
         log.debug("REST request to save Document : {}", document);
         if (document.getId() != null) {
@@ -77,6 +90,7 @@ public class DocumentResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/documents/{emid}/{id}")
+    @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<Document> updateDocument(
         @PathVariable(value = "id", required = false) final Long id,
         @RequestBody Document document
@@ -112,6 +126,7 @@ public class DocumentResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PatchMapping(value = "/documents/{emid}/{id}", consumes = { "application/json", "application/merge-patch+json" })
+    @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<Document> partialUpdateDocument(
         @PathVariable(value = "id", required = false) final Long id,
         @RequestBody Document document
@@ -170,6 +185,7 @@ public class DocumentResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/documents/{id}")
+    @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<Void> deleteDocument(@PathVariable Long id) {
         log.debug("REST request to delete Document : {}", id);
         documentService.delete(id);

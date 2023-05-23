@@ -1,9 +1,12 @@
 <div class="row justify-content-center">
   <div class="col-8">
     <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
-      <h2 id="jhi-document-heading" data-cy="DocumentCreateUpdateHeading" >
-        Create or edit a Document
+      <h2 id="jhi-document-heading" data-cy="DocumentCreateUpdateHeading" *ngIf="isEditing; else othercontent">
+        Edit the Document.
       </h2>
+      <ng-template #othercontent>
+        <h2 id="jhi-document-heading" data-cy="DocumentCreateUpdateHeading">Create a Document for employee #{{emid}}</h2>
+      </ng-template>
 
       <div>
         <jhi-alert-error></jhi-alert-error>
@@ -25,7 +28,7 @@
           />
         </div>
 
-        <div class="form-group">
+        <div *ngIf = "isEditing" class="form-group">
           <label class="form-control-label" for="field_employeeId">Employee Id</label>
           <input
             type="number"

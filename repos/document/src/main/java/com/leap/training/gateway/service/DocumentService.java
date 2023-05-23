@@ -3,6 +3,7 @@ package com.leap.training.gateway.service;
 import com.leap.training.gateway.domain.Document;
 import com.leap.training.gateway.repository.DocumentRepository;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collector;
@@ -83,11 +84,25 @@ public class DocumentService {
     public Page<Document> findAllByEmployeeId(Pageable pageable, Long emid) {
         log.debug("Request to get all Documents");
         
-        List<Document> list = documentRepository.findAll()
+        List<Document> list = documentRepository.findAll(pageable)
                                 .stream()
                                 .filter(document-> document.getEmployeeId() == emid)
                                 .collect(Collectors.toList());
-        return new PageImpl<Document>(list);
+
+        int pageSize = pageable.getPageSize();
+        int currentPage = pageable.getPageNumber();
+        int startItem = currentPage * pageSize;
+
+        List<Document> currentPageList;
+
+        if (list.size() < startItem) {
+            currentPageList = Collections.emptyList();
+        } else {
+            int toIndex = Math.min(startItem + pageSize, list.size());
+            currentPageList = list.subList(startItem, toIndex);
+        }
+
+        return new PageImpl<>(currentPageList, pageable, list.size());
     }
 
     /**

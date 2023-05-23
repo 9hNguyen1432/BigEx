@@ -16,6 +16,7 @@ import { DocumentTypeService } from 'app/entities/document-type/service/document
 })
 export class DocumentUpdateComponent implements OnInit {
   isSaving = false;
+  isEditing = false;
 
   documentTypesSharedCollection: IDocumentType[] = [];
 
@@ -25,6 +26,7 @@ export class DocumentUpdateComponent implements OnInit {
     employeeId: [],
     type: [],
   });
+  emid = 0;
 
   constructor(
     protected documentService: DocumentService,
@@ -34,7 +36,11 @@ export class DocumentUpdateComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.activatedRoute.params.subscribe(params => {this.emid=params["emid"];});
     this.activatedRoute.data.subscribe(({ document }) => {
+      if(document.id){
+        this.isEditing = true;
+      }
       this.updateForm(document);
 
       this.loadRelationshipsOptions();
@@ -109,7 +115,7 @@ export class DocumentUpdateComponent implements OnInit {
       ...new Document(),
       id: this.editForm.get(['id'])!.value,
       documentName: this.editForm.get(['documentName'])!.value,
-      employeeId: this.editForm.get(['employeeId'])!.value,
+      employeeId: this.emid,
       type: this.editForm.get(['type'])!.value,
     };
   }

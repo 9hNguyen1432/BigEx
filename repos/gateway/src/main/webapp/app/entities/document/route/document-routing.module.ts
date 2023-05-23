@@ -24,14 +24,14 @@ const documentRoute: Routes = [
     },
     canActivate: [UserRouteAccessService],
   },
-  // {
-  //   path: 'new',
-  //   component: DocumentUpdateComponent,
-  //   resolve: {
-  //     document: DocumentRoutingResolveService,
-  //   },
-  //   canActivate: [UserRouteAccessService],
-  // },
+  {
+    path: ':emid/new',
+    component: DocumentUpdateComponent,
+    resolve: {
+      document: DocumentRoutingResolveService,
+    },
+    canActivate: [UserRouteAccessService],
+  },
   {
     path: ':emid/:id/edit',
     component: DocumentUpdateComponent,

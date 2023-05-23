@@ -12,7 +12,7 @@
         id="jh-create-entity"
         data-cy="entityCreateButton"
         class="btn btn-primary jh-create-entity create-document"
-        [routerLink]="['/document/new']"
+        [routerLink]="['/document', emID, 'new']"
       >
         <fa-icon icon="plus"></fa-icon>
         <span > Create a new Document </span>
@@ -46,7 +46,7 @@
       <tbody>
         <tr *ngFor="let document of documents; trackBy: trackId" data-cy="entityTable">
           <td>
-            <a [routerLink]="['/document', document.id, 'view']">{{ document.id }}</a>
+            <a [routerLink]="['/document',emID, document.id, 'view']">{{ document.id }}</a>
           </td>
           <td>{{ document.documentName }}</td>
           <td>{{ document.employeeId }}</td>
