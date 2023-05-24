@@ -45,6 +45,13 @@ public class EmployeeService {
         log.debug("Request to save Employee : {}", employee);
         return employeeRepository.save(employee);
     }
+
+    /**
+     * Update a employee, save job history if need.
+     *
+     * @param employee the entity to update.
+     * @return the persisted entity.
+     */
     @Transactional(propagation = Propagation.REQUIRED)
     public Optional<Employee> update(Employee employee) {
         log.debug("Request to save Employee : {}", employee);
@@ -52,8 +59,10 @@ public class EmployeeService {
         return employeeRepository
         .findById(employee.getId())
         .map(existingEmployee -> {
-
+            //boonlean var to check if the information relate to job change -> save new history.
+            //include: salary, job, department
             Boolean isChangeHistory = false;
+            //generate new History
             JobHistory jobHistory = new JobHistory();
             jobHistory.setStartDate(existingEmployee.getHireDate());
             jobHistory.setEndDate(LocalDateTime.now().toInstant(ZoneOffset.ofHours(7)));
@@ -62,7 +71,7 @@ public class EmployeeService {
             jobHistory.setDepartment(existingEmployee.getDepartment());
             jobHistory.setJob(existingEmployee.getJob());
 
-
+            //check name, mail, phone...
             if (employee.getFirstName() != null) {
                 existingEmployee.setFirstName(employee.getFirstName());
             }
@@ -78,25 +87,29 @@ public class EmployeeService {
             if (employee.getHireDate() != null) {
                 existingEmployee.setHireDate(employee.getHireDate());
             }
-            if (employee.getSalary() != null) {
-                existingEmployee.setSalary(employee.getSalary());
-            }
             if (employee.getCommissionPct() != null) {
                 existingEmployee.setCommissionPct(employee.getCommissionPct());
             }
-            if (employee.getJob() != null) {
-                // them
-                if(!employee.getJob().equals(existingEmployee.getJob())){
+
+            //check infors make change in job
+            if (employee.getSalary() != null && (!employee.getSalary().equals(existingEmployee.getSalary()))) {
+                    isChangeHistory = true;
+                    existingEmployee.setSalary(employee.getSalary());
+            }
+            if (employee.getManager() != null && (!employee.getManager().equals(existingEmployee.getManager()))) {
+                    isChangeHistory = true;
+                    existingEmployee.setManager(employee.getManager());
+            }
+            if (employee.getJob() != null && (!employee.getJob().equals(existingEmployee.getJob()))) {
                     isChangeHistory = true;
                     existingEmployee.setJob(employee.getJob());
-                }
             }
-            if (employee.getDepartment() != null) {
-                if(!employee.getDepartment().equals(existingEmployee.getDepartment())){
+            if (employee.getDepartment() != null && (!employee.getDepartment().equals(existingEmployee.getDepartment()))) {
                     isChangeHistory = true;
                     existingEmployee.setDepartment(employee.getDepartment());
-                }
             }
+
+            // save
             if (isChangeHistory == true){
                 jobHistoryService.save(jobHistory);
             }
